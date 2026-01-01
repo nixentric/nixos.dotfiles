@@ -1,0 +1,21 @@
+{ pkgs, ... }:
+
+{
+  time.timeZone = "Asia/Jakarta";
+
+  users.users.nixentric = {
+    isNormalUser = true;
+    description = "nixentric"; 
+    extraGroups = [ 
+      "wheel"          
+      "networkmanager"  
+      "video"          
+      "input"          
+    ];
+    packages = with pkgs; [
+      tree
+    ];
+  };
+
+  i18n.defaultLocale = "en_US.UTF-8";
+}
