@@ -186,6 +186,10 @@
         ", XF86AudioPrev, exec, playerctl previous"
       ];
 
+      windowrule = [
+        "float on, match:class org.keepassxc.KeePassXC"
+      ];
+
     };
   };
 
