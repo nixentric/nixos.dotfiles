@@ -20,7 +20,7 @@
 
       # --- AUTOMATIC APP OPEN ---
       exec-once = [
-        "keepassxc"
+     
       ];
 
       # --- ENV VARIABLES ---
