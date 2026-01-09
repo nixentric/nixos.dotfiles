@@ -1,24 +1,38 @@
-{ config, lib, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./system/boot.nix
-      ./system/user.nix
-      ./system/storage.nix
-      ./system/network.nix
-      ./system/gui.nix
-      ./system/services.nix
-    ];
-  
-  programs.firefox.enable  = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./system/boot.nix
+    ./system/user.nix
+    ./system/storage.nix
+    ./system/network.nix
+    ./system/gui.nix
+    ./system/services.nix
+  ];
+
+  programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
     wget
     bat
+    fish
   ];
+
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
 
   # # services.dbus.enable = true;
   #  environment.sessionVariables = {
@@ -41,7 +55,7 @@
   #   QT_WAYLAND_FORCE_DPI = "physical";
   #   QT_SCALE_FACTOR_ROUNDING_POLICY = "PassThrough";
   #   QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-    
+
   #   # Fix Rendering
   #   NGS_DISABLE_SHADERS_CACHE = "1";
   #   QT_SCALE_FACTOR= "1";
@@ -49,9 +63,8 @@
   #   MY_PROJECT_KEY = "rahasia-12345";
   # };
 
- programs.zsh.enable = true;
- programs.bash.enable = true;
+  programs.zsh.enable = true;
+  programs.bash.enable = true;
 
-   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 }
-

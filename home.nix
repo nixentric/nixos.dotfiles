@@ -15,6 +15,7 @@
     ./modules/kde.nix
     ./modules/btop.nix
     ./modules/nixvim/default.nix
+    ./modules/fish/default.nix
   ];
 
   home.packages = with pkgs; [
@@ -25,6 +26,7 @@
     libnotify
     keepassxc
     libsecret
+    fastfetch
   ];
 
   programs.home-manager.enable = true;
