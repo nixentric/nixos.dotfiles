@@ -8,7 +8,7 @@
       useOSProber = false;
       theme = import ./themes/wuthering-grub.nix {
         inherit pkgs;
-        character = "yinlin";
+        character = "changli";
         resolution = "1080p";
       };
       gfxmodeEfi = "1920x1080";
