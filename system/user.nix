@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   time.timeZone = "Asia/Jakarta";
-
+  programs.fish.enable = true;
   users.users.nixentric = {
     isNormalUser = true;
     description = "nixentric";
