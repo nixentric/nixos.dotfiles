@@ -11,7 +11,6 @@
 
   imports = [
     ./modules/hypr/default.nix
-    ./modules/quickshell/default.nix
     ./modules/git/default.nix
     ./modules/kde.nix
     ./modules/btop.nix
