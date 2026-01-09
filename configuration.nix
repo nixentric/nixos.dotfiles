@@ -18,7 +18,6 @@
     vim
     wget
     bat
-    neovim
   ];
 
   # # services.dbus.enable = true;

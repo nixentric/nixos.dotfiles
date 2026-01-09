@@ -1,7 +1,7 @@
 {
   description = "A very basic flake";
 
-  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, hyprland, quickshell, nixvim, ... }@inputs: {
     nixosConfigurations = {
       "nixos-btw" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -44,6 +44,8 @@
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:nix-community/nixvim";
     
   };
 
