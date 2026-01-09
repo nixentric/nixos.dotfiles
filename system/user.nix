@@ -1,17 +1,16 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   time.timeZone = "Asia/Jakarta";
 
   users.users.nixentric = {
     isNormalUser = true;
-    description = "nixentric"; 
-    extraGroups = [ 
-      "wheel"          
-      "networkmanager"  
-      "video"          
-      "input"          
+    description = "nixentric";
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "input"
     ];
+    shell = pkgs.fish;
     packages = with pkgs; [
       tree
     ];
