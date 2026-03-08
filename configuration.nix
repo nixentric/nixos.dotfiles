@@ -103,7 +103,10 @@ in {
 
   services = {
     upower.enable = true;
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      packages = [ pkgs.kdePackages.kio-fuse ];
+    };
     displayManager.sddm.enable = true;
     udisks2.enable = true;
     gvfs.enable = true; 
@@ -112,6 +115,7 @@ in {
   users.users.nixentric = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.fish;
     packages = with pkgs; [
       tree
     ];
@@ -128,6 +132,17 @@ in {
     firefox.enable = true;
     xwayland.enable = true;
     dconf.enable = true;
+    fish.enable = true;
+
+    bash = {
+      interactiveShellInit = ''
+        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+        then
+          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        fi
+      '';
+    };
     
     # Games
     steam = {

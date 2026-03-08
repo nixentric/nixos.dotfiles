@@ -17,6 +17,7 @@ home.packages = with pkgs; with kdePackages; [
    kio-fuse
    kio-extras
    dolphin
+   kitty
 ];
 
 programs.git = {
