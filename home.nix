@@ -9,11 +9,8 @@ home.homeDirectory = "/home/nixentric";
 home.packages = with pkgs; [
    btop
    kitty
-  
-   # graphics driver tools
-   mesa-utils
-   pciutils
-   vulkan-tools
+   wl-clipboard-rs
+   protonup-qt
 ];
 
 programs.git = {

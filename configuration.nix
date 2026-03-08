@@ -26,13 +26,12 @@
   swapDevices = [{device = "/swap/swapfile";}];
   services.fstrim.enable = true;
 
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
   
   hardware = {
     graphics = {
@@ -56,11 +55,21 @@
          nvidiaBusId = "PCI:1:0:0";
       };
     };
+
   };
 
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+       pkgs.xdg-desktop-portal-hyprland
+       pkgs.xdg-desktop-portal-gtk
+    ];
+   config.common.default = "*";
   };
 
   security.polkit.enable = true;
@@ -99,12 +108,25 @@
     hyprland.enable = true;
     firefox.enable = true;
     xwayland.enable = true;
+    dconf.enable = true;
+    
+    # Games
+    steam = {
+     enable = true;
+     remotePlay.openFirewall = true;
+     dedicatedServer.openFirewall = true;
+     extraCompatPackages = with pkgs; [
+      proton-ge-bin 
+     ];
+    };
+
+    gamemode.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    git
+    steam-run
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
