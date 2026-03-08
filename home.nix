@@ -7,15 +7,26 @@ home.username = "nixentric";
 home.homeDirectory = "/home/nixentric";
 
 home.packages = with pkgs; [
-   git
    btop
    kitty
+  
+   # graphics driver tools
+   mesa-utils
+   pciutils
+   vulkan-tools
 ];
 
 programs.git = {
   enable = true;
-  userName = "nixentric";
-  userEmail = "dev@nixentric.com";
+  settings = {
+    user = {
+      name = "nixentric";
+      email = "dev@nixentric.com";
+    };
+    init.defaultBranch = "main";
+    core.askpass = "";
+    
+  };
 };
 
 programs.home-manager.enable = true;
