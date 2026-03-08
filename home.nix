@@ -6,12 +6,17 @@ home.stateVersion = "25.11";
 home.username = "nixentric";
 home.homeDirectory = "/home/nixentric";
 
-home.packages = with pkgs; [
+home.packages = with pkgs; with kdePackages; [
    btop
    kitty
    wl-clipboard-rs
    protonup-qt
    mesa-demos
+   qtsvg
+   kio
+   kio-fuse
+   kio-extras
+   dolphin
 ];
 
 programs.git = {
