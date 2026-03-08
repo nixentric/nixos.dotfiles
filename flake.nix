@@ -8,6 +8,8 @@
          inputs.nixpkgs.follows = "nixpkgs";
     };
 
+   hyprland.url = "github:hyprwm/Hyprland";
+
     sherlock = {
        url = "github:Skxxtz/sherlock";
        inputs.nixpkgs.follows = "nixpkgs";
@@ -26,6 +28,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.nixentric = import ./home.nix;
+                backupFileExtension = "bak";
              };
          }
        ];

@@ -1,7 +1,19 @@
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }: let
+  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in {
 
-{
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -36,7 +48,9 @@
   hardware = {
     graphics = {
       enable = true;
+      package = pkgs-unstable.mesa;
       enable32Bit = true;
+      package32 = pkgs-unstable.pkgsi686Linux.mesa;
     };
     
     nvidia = {
@@ -66,7 +80,6 @@
   xdg.portal = {
     enable = true;
     extraPortals = [
-       pkgs.xdg-desktop-portal-hyprland
        pkgs.xdg-desktop-portal-gtk
     ];
    config.common.default = "*";
@@ -105,7 +118,11 @@
   nixpkgs.config.allowUnfree = true;
 
   programs = {
-    hyprland.enable = true;
+    hyprland = {
+      enable = true;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    };
     firefox.enable = true;
     xwayland.enable = true;
     dconf.enable = true;
